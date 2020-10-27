@@ -1,20 +1,32 @@
 import React from 'react';
 import API from '../../utils/API/API';
+import TableRow from './tableRow';
 
 class TableComponent extends React.Component {
     state = {
-        input: ""
+        input: "",
+        employees: []
     };
 
     componentDidMount() {
-        API.getRandomEmployees().then((response) => {
-            
-        })
+        API.getRandomEmployees().then(({data: { results }}) => {
+            const newEmployees = [];
+            // console.log(results);
+            results.forEach(({name: {first: firstName, last: lastName}, email, phone, picture: { medium: profilePhoto }}) => {
+                newEmployees.push({firstName, lastName, email, phone, profilePhoto});
+            })
+            this.setState({employees: newEmployees});
+            console.log(this.state.employees);
+        }).catch((err) => {
+            console.log(err);
+        });
     }
 
     handleInputChange = (event) => {
         this.setState({input: event.target.value});
     };
+
+
 
 
     render() {
@@ -28,6 +40,7 @@ class TableComponent extends React.Component {
             onChange={this.handleInputChange}
             />
                 <table className="table">
+                    <thead>
                     <tr>
                         <th>
                             Employee Photo
@@ -45,6 +58,10 @@ class TableComponent extends React.Component {
                             Phone Number
                         </th>
                     </tr>
+                    </thead>
+                    <tbody>
+            <TableRow employee={this.state.employees}/>
+                    </tbody>
                 </table>
             </div>
         )
