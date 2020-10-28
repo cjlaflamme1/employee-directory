@@ -10,6 +10,14 @@ class TableComponent extends React.Component {
         filteredEmployees: []
     };
 
+    // sort function created, need to hook to list.
+    sortFactory = (arr, sortDir) => {
+        let modifier = sortDir === "asc" ? 1 : -1;
+        arr.sort((curr, prev) => {
+            return (curr.lastName > prev.lastName ? 1 : -1) * modifier;
+        })
+    }
+
     searchFilter(searchString) {
         console.log(searchString);
         let newEmployeeArray = this.state.employees.filter((employee) => {
