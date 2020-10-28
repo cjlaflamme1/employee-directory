@@ -9,7 +9,7 @@ function TableRow(props) {
                     <tr>
                         <td>
                             {/* Add actual path for image */}
-                            <img src={employee.profilePhoto} alt="Employee Headshot" />
+                            <img src={employee.profilePhoto} alt="Employee Headshot" className="profilePhoto"/>
                         </td>
                         <td>
                             {employee.firstName}
