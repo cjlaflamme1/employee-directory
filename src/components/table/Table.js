@@ -11,11 +11,22 @@ class TableComponent extends React.Component {
     };
 
     // sort function created, need to hook to list.
-    sortFactory = (arr, sortDir) => {
-        let modifier = sortDir === "asc" ? 1 : -1;
-        arr.sort((curr, prev) => {
-            return (curr.lastName > prev.lastName ? 1 : -1) * modifier;
-        })
+    sortFactory = (event) => {
+        const dataSort = event.target.id;
+        let modifier = (dataSort === "true")  ? 1 : -1;
+     
+        if(this.state.filteredEmployees.length > 0) {
+            const newList = this.state.filteredEmployees.sort((curr, prev) => {
+                return (curr.lastName > prev.lastName ? 1 : -1) * modifier;
+            })
+            this.setState({ filteredEmployees: newList});
+
+        } else {
+            const newList = this.state.employees.sort((curr, prev) => {
+                return (curr.lastName > prev.lastName ? 1 : -1) * modifier;
+            })
+            this.setState( { employees: newList });
+        }
     }
 
     searchFilter(searchString) {
@@ -99,7 +110,8 @@ class TableComponent extends React.Component {
                                 First Name
                             </th>
                             <th>
-                                Last Name
+                               <a id="true" onClick={this.sortFactory}><i class="fas fa-sort-alpha-down" id="true"></i></a> Last Name  <a  onClick={this.sortFactory} id="false"><i class="fas fa-sort-alpha-up-alt" id="false"></i></a>
+
                             </th>
                             <th>
                                 Email Address
