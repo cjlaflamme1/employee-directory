@@ -30,7 +30,7 @@ class TableComponent extends React.Component {
     }
 
     searchFilter(searchString) {
-        console.log(searchString);
+        
         let newEmployeeArray = this.state.employees.filter((employee) => {
             if (employee.firstName.includes(searchString)) {
                 return employee;
@@ -45,7 +45,7 @@ class TableComponent extends React.Component {
         if (this.state.employees.length <= 0) {
             API.getRandomEmployees().then(({ data: { results } }) => {
                 const newEmployees = [];
-                // console.log(results);
+                
                 results.forEach(({ name: { first: firstName, last: lastName }, email, phone, picture: { medium: profilePhoto } }) => {
                     newEmployees.push({ firstName, lastName, email, phone, profilePhoto });
                 })
@@ -59,7 +59,7 @@ class TableComponent extends React.Component {
 
     handleInputChange = (event) => {
         const newSearch = event.target.value;
-        console.log(newSearch);
+        
         this.setState({ input: newSearch });
         if (!newSearch) {
             this.setState({ filteredEmployees: [] });
@@ -68,7 +68,7 @@ class TableComponent extends React.Component {
             this.searchFilter(newSearch);
 
         }
-        // console.log(this.state.input);
+        
     };
 
     deliverEmployees() {

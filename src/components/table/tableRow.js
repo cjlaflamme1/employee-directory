@@ -3,7 +3,7 @@ import React from 'react';
 function TableRow(props) {
     return (
         <>
-            {console.log(props)}
+            
             {props.employee.map((employee) => {
                 return (
                     <tr>
